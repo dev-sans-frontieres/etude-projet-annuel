@@ -1,0 +1,49 @@
+@startuml
+skinparam actorStyle awesome
+'left to right direction
+
+'Utilisateurs
+:Utilisateur: as user
+:Administrateur: as admin
+:Propriétaire: as prop
+:Trouveur: as findr
+
+'Cas d'utilisation
+(Modifier son mot de passe) as uc_edit_password
+(S'enregistrer) as uc_signup
+(Se connecter) as uc_login
+(Se déconnecter) as uc_logout
+(Authentification par mail) as uc_login_with_mail
+(Authentification unique SSO) as uc_login_with_sso
+(Authentification double facteur) as uc_login_with_2fa
+
+admin --|> user
+prop --|> user
+findr --|> user
+
+user --> uc_edit_password
+user --> uc_signup
+user --> uc_login
+user --> uc_logout
+
+uc_login<..uc_login_with_mail:<<include>>
+uc_login<..uc_login_with_sso:<<include>>
+uc_login<..uc_login_with_2fa:<<extends>>
+
+' actor Guest as g
+' package Professional {
+'   actor Chef as c
+'   actor "Food Critic" as fc
+' }
+' package Restaurant {
+'   usecase "Eat Food" as UC1
+'   usecase "Pay for Food" as UC2
+'   usecase "Drink" as UC3
+'   usecase "Review" as UC4
+' }
+' fc --> UC4
+' g --> UC1
+' g --> UC2
+' g --> UC3
+
+@enduml

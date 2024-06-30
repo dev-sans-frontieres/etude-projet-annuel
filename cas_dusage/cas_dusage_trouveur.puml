@@ -1,0 +1,28 @@
+@startuml
+skinparam actorStyle awesome
+left to right direction
+
+'Utilisateurs
+:Utilisateur: as user
+:Trouveur: as findr
+
+'Cas d'utilisation
+(Création d'un chat avec le propriétaire) as uc_create_chat
+(Scanner le code QR) as uc_scan_qr_code
+(Envoyer un message) as uc_send_msg
+(Notifier par email) as uc_notify_by_mail
+(Notifier directement) as uc_direct_notif
+(Hacher les messages) as uc_hash_msg
+
+user <|-- findr
+
+findr --> uc_scan_qr_code
+findr --> uc_send_msg
+
+uc_scan_qr_code<..uc_create_chat:<<extends>>
+
+uc_send_msg<..uc_notify_by_mail:<<include>>
+uc_send_msg<..uc_direct_notif:<<include>>
+uc_send_msg<..uc_hash_msg:<<extends>>
+
+@enduml

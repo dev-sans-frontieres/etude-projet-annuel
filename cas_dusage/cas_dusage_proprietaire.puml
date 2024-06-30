@@ -1,0 +1,36 @@
+@startuml
+skinparam actorStyle awesome
+left to right direction
+
+'Utilisateurs
+:Utilisateur: as user
+:Propriétaire: as prop
+
+'Cas d'utilisation
+(Acheter un code QR) as uc_buy_code_qr
+(Payer en euros) as uc_pay_eur
+(Payer en cryptomonnaie) as uc_pay_crypto
+(Lier un code QR à un objet) as uc_link_qr_code_obj
+(Connecter son portefeuille cryptomonnaie) as uc_link_cryptowallet
+(Changer le statut d'un objet) as uc_change_obj_status
+(Envoyer un message) as uc_send_msg
+(Notifier par email) as uc_notify_by_mail
+(Notifier directement) as uc_direct_notif
+(Hacher les messages) as uc_hash_msg
+
+user <|-- prop
+
+prop --> uc_buy_code_qr
+prop --> uc_link_qr_code_obj
+prop --> uc_change_obj_status
+prop --> uc_send_msg
+
+uc_send_msg<..uc_notify_by_mail:<<include>>
+uc_send_msg<..uc_direct_notif:<<include>>
+uc_send_msg<..uc_hash_msg:<<extends>>
+
+uc_buy_code_qr<..uc_pay_eur:<<include>>
+uc_buy_code_qr<..uc_pay_crypto:<<include>>
+uc_pay_crypto<..uc_link_cryptowallet:<<extends>>
+
+@enduml

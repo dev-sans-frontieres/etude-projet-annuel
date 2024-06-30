@@ -1,0 +1,21 @@
+@startuml
+skinparam actorStyle awesome
+left to right direction
+
+'Utilisateurs
+:Utilisateur: as user
+:Administrateur: as admin
+
+'Cas d'utilisation
+(Gérer les utilisateurs) as uc_manage_users
+(Gérer les droits des utilisateurs) as uc_manage_users_rights
+(Supprimer des utilisateurs) as uc_delete_users
+
+user <|-- admin
+
+admin --> uc_manage_users
+
+uc_manage_users<..uc_manage_users_rights:<<include>>
+uc_manage_users<..uc_delete_users:<<include>>
+
+@enduml
